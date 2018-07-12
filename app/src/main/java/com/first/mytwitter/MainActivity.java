@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 
-// Set an EditText view to get user input
+// Set an EditText view to get user input/
             final EditText input = new EditText(this);
             alert.setView(input);
 

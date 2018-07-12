@@ -1,5 +1,5 @@
 package com.first.mytwitter.TwitModel;
-
+//
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
