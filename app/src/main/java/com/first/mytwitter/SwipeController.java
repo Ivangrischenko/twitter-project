@@ -1,4 +1,4 @@
-package com.first.anew;
+package com.first.mytwitter;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,9 +9,11 @@ import android.support.v7.widget.helper.ItemTouchHelper.Callback;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.first.anew.SwipeControllerActions;
 
-import static android.support.v7.widget.helper.ItemTouchHelper.*;
+
+import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_SWIPE;
+import static android.support.v7.widget.helper.ItemTouchHelper.LEFT;
+import static android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
 
 enum ButtonsState {
     GONE,

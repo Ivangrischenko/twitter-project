@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Twitter</string>
+    <string name="number_list">ТОП-10 футболистов</string>
+    <string name="empty">Нет данных</string>
+
+    <string name="action_add">Добавить</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="button">Button</string>
+
+</resources>

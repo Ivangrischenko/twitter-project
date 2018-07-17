@@ -13,8 +13,8 @@ public class DefAppl extends Application {
 
         Realm.init(this);
 
-        RealmConfiguration configuration = new RealmConfiguration.Builder().name("Appp").build();
+        RealmConfiguration defconf = new RealmConfiguration.Builder().name("defApp").build();
 
-        Realm.setDefaultConfiguration(configuration);
+        Realm.setDefaultConfiguration(defconf);
     }
 }

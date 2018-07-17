@@ -1,4 +1,4 @@
-package com.first.anew;
+package com.first.mytwitter;
 
 public abstract class SwipeControllerActions {
 
