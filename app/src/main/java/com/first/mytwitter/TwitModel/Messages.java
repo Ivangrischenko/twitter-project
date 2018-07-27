@@ -1,17 +1,29 @@
 package com.first.mytwitter.TwitModel;
 //
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Messages extends RealmObject {
 
 
-    @PrimaryKey
+
     private int id;
 
-    private String date;
 
-    private String twitt;
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -21,19 +33,9 @@ public class Messages extends RealmObject {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
-    }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
-    public String getTwitt() {
-        return twitt;
-    }
 
-    public void setTwitt(String twitt) {
-        this.twitt = twitt;
-    }
+
+
 }

@@ -12,6 +12,7 @@ import io.realm.RealmResults;
 
 public class MyHelper  {
     Realm realm;
+
     // final RealmResults<Player> players = realm.where(Player.class).findAll();
 
     public MyHelper(Realm realm) {
@@ -50,7 +51,7 @@ public class MyHelper  {
     }
 
     //update
-    public  void update(final int id, final String date, final String twitt) {
+    public  void update(final int id, final String twitt) {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(@NonNull Realm realm) {
@@ -59,8 +60,8 @@ public class MyHelper  {
                         .findFirst();
 
                 assert messages != null;
-                messages.setTwitt(twitt);
-                messages.setDate(date);
+                messages.setName(twitt);
+               // messages.setDate(date);
 
 
 
@@ -82,8 +83,7 @@ public class MyHelper  {
         });
 
     }
+
+
+
 }
-
-
-
-

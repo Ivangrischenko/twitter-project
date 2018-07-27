@@ -51,8 +51,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         myHelper = new MyHelper( realm );
-        myHelper.update( id, edit_message_new.getText().toString(),
-                edit_date_new.getText().toString());
+        myHelper.update( id, edit_message_new.getText().toString());
 
 
         finish();

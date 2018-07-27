@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.first.mytwitter.Applycation.Countries;
+import com.first.mytwitter.Applycation.RetrofitClientInstance;
 import com.first.mytwitter.TwitModel.Messages;
 import com.first.mytwitter.TwitModel.MyHelper;
 
@@ -29,6 +31,9 @@ import java.util.List;
 
 import io.realm.Realm;
 import pl.fanfatal.swipecontrollerdemo.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     List<Messages> messagesList;
     PlayersDataAdapter mAdapter;
     SwipeController swipeController = null;
-    Realm realm;
+    Realm realm2;
     int id;
 
 
@@ -54,11 +59,40 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        //setup realm
-        realm = Realm.getDefaultInstance();
+        realm2 = Realm.getDefaultInstance();
 
-        myHelper = new MyHelper(realm);
+        myHelper = new MyHelper(realm2);
         messagesList = new ArrayList<>();
+
+        //retrofit init
+
+        Countries service = RetrofitClientInstance.getRetrofitInstance().
+                create(Countries.class);
+
+        Call<List<Messages>> call = service.getCountries();
+        call.enqueue(new Callback<List<Messages>>() {
+
+            @Override
+            public void onResponse(Call<List<Messages>> call, Response<List<Messages>> response) {
+
+
+                for(int i = 0; i < response.body().size(); i++){
+
+                    Messages messages =  new Messages();
+                    messages.setName(response.body().get(i).getName()) ;
+                    myHelper.save( messages );
+
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Messages>> call, Throwable t) {
+
+                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         messagesList = myHelper.getAllRealmM();
 
@@ -70,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRightClicked(final int position) {
 
-                realm.executeTransaction(new Realm.Transaction() {
+                realm2.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
 
@@ -90,13 +124,11 @@ public class MainActivity extends AppCompatActivity {
             public void onLeftClicked (final int position){
                 Intent intent = new Intent( MainActivity.this, UpdateActivity.class );
                 intent.putExtra( "key_id", messagesList.get( position).getId() + "" );
-                intent.putExtra( "key_message", messagesList.get( position).getTwitt() );
-                intent.putExtra( "key_date", messagesList.get( position).getDate() );
+                intent.putExtra( "key_message", messagesList.get( position).getName() );
+               // intent.putExtra( "key_date", messagesList.get( position).getDate() );
 
 
                 MainActivity.this.startActivity( intent );
-
-
 
             }
         });

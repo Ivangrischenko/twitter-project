@@ -35,8 +35,8 @@ public class PlayersDataAdapter extends RecyclerView.Adapter<PlayersDataAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Messages messages = messagesList.get(position);
-        holder.message.setText(messages.getTwitt());
-        holder.date.setText(messages.getDate());
+        holder.message.setText(messages.getName());
+       // holder.date.setText(messages.getDate());
 
 
 
@@ -65,5 +65,3 @@ public class PlayersDataAdapter extends RecyclerView.Adapter<PlayersDataAdapter.
 
 
 }
-
-

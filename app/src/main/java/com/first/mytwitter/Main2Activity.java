@@ -19,10 +19,10 @@ import pl.fanfatal.swipecontrollerdemo.R;
 public class Main2Activity extends AppCompatActivity {
 
 
-    EditText edit_message, edit_date;
+    EditText edit_message;
     Button button;
     Realm realm1;
-    String mMessage, mDate;
+    String mMessage;
     MyHelper myHelper;
 
 
@@ -33,8 +33,6 @@ public class Main2Activity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.b1);
         edit_message = (EditText) findViewById(R.id.edit_message);
-        edit_date = (EditText) findViewById(R.id.edit_date);
-
 
         realm1 = Realm.getDefaultInstance();
 
@@ -42,22 +40,16 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mMessage = edit_message.getText().toString();
-                mDate = edit_date.getText().toString();
 
-
-                if(!mMessage.isEmpty() && !mDate.isEmpty()){
+                if(!mMessage.isEmpty() ){
                     Messages messages = new Messages();
 
-                    messages.setTwitt(mMessage);
-                    messages.setDate(mDate);
-
+                    messages.setName(mMessage);
 
                     myHelper = new MyHelper (realm1);
                     myHelper.save(messages);
 
                     Toast.makeText(Main2Activity.this, "Удалось", Toast.LENGTH_SHORT).show();
-
-                    // edit_name.setText("");
 
                     startActivity(new Intent(Main2Activity.this, MainActivity.class));
                 }
@@ -67,5 +59,3 @@ public class Main2Activity extends AppCompatActivity {
 
 
 }
-
-
