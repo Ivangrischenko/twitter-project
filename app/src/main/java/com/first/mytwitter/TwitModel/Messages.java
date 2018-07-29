@@ -15,6 +15,8 @@ public class Messages extends RealmObject {
 
     @SerializedName("name")
     @Expose
+
+
     private String name;
 
     public String getName() {

@@ -9,11 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.first.mytwitter.Applycation.Countries;
+import com.first.mytwitter.Applycation.RetrofitClientInstance;
 import com.first.mytwitter.TwitModel.Messages;
 import com.first.mytwitter.TwitModel.MyHelper;
 
+import java.util.List;
+
 import io.realm.Realm;
 import pl.fanfatal.swipecontrollerdemo.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Main2Activity extends AppCompatActivity {
@@ -36,17 +43,44 @@ public class Main2Activity extends AppCompatActivity {
 
         realm1 = Realm.getDefaultInstance();
 
+
+        final Countries service = RetrofitClientInstance.getRetrofitInstance().
+                create(Countries.class);
+
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mMessage = edit_message.getText().toString();
 
                 if(!mMessage.isEmpty() ){
-                    Messages messages = new Messages();
+
+
+                    final Messages messages = new Messages();
 
                     messages.setName(mMessage);
 
                     myHelper = new MyHelper (realm1);
+
+
+
+
+                   /* Call<List<Messages>> call = service.setData(7, messages);
+                    call.enqueue(new Callback<List<Messages>>() {
+                        @Override
+                        public void onResponse(Call<List<Messages>> call,  Response<List<Messages>> response) {
+                          // messages.setName(response.body().getName());
+                            messages.setName("fail");
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Messages>> call, Throwable t) {
+                            messages.setName("fail");
+                        }
+                    });*/
+
                     myHelper.save(messages);
 
                     Toast.makeText(Main2Activity.this, "Удалось", Toast.LENGTH_SHORT).show();

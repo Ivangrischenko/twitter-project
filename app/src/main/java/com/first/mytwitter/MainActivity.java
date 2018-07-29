@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 
 import com.first.mytwitter.Applycation.Countries;
+
 import com.first.mytwitter.Applycation.RetrofitClientInstance;
 import com.first.mytwitter.TwitModel.Messages;
 import com.first.mytwitter.TwitModel.MyHelper;
@@ -64,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
         myHelper = new MyHelper(realm2);
         messagesList = new ArrayList<>();
 
+
+
+
         //retrofit init
 
         Countries service = RetrofitClientInstance.getRetrofitInstance().
@@ -73,16 +78,21 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Messages>>() {
 
             @Override
-            public void onResponse(Call<List<Messages>> call, Response<List<Messages>> response) {
+            public void onResponse(@NonNull Call<List<Messages>> call, @NonNull Response<List<Messages>> response) {
 
 
-                for(int i = 0; i < response.body().size(); i++){
 
-                    Messages messages =  new Messages();
-                    messages.setName(response.body().get(i).getName()) ;
+                for (int i = 0; i < response.body().size(); i++) {
+
+
+                    Messages messages = new Messages();
+                    messages.setName( response.body().get( i ).getName() );
                     myHelper.save( messages );
+                   // myHelper.update( i , messages.getName());
 
                 }
+
+
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -93,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         messagesList = myHelper.getAllRealmM();
+
 
         mAdapter = new PlayersDataAdapter( messagesList, this);
         recyclerView.setAdapter(mAdapter);
@@ -110,8 +120,10 @@ public class MainActivity extends AppCompatActivity {
 
 
                         // remove a single object
-                        Messages messages = messagesList.get(position);
+
+                            Messages messages = messagesList.get( position );
                         messages.deleteFromRealm();
+
 
                     }
                 });
@@ -162,10 +174,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+    /*@Override
     protected void onResume(){
         super.onResume();
         mAdapter.notifyDataSetChanged();
         Log.e ( "ppppp", "рестартттттттт");
-    }
+    }*/
 }
